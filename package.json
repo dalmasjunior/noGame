@@ -1,0 +1,14 @@
+{
+  "name": "nogame",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Paulo Roberto Dalmas Junior <dalmasjunior@gmail.com> (https://github.com/khrosboss)",
+  "license": "ISC",
+  "dependencies": {
+    "firebase-admin": "^5.7.0"
+  }
+}
