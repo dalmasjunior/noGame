@@ -1,24 +1,20 @@
-const admin = require('firebase-admin');
+const express = require('express');
 
-var serviceAccount = require('./noGame-6c8659a65b08.json');
+const helmet = require('helmet');
+const bodyParser = require('body-parser');
+const morgan = require('morgan');
 
-admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount)
+const routes = require('./routes');
+const config = require('./config');
+
+const app = express();
+
+app.use(helmet());
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
+app.use(morgan('tiny'));
+app.use('/', routes);
+
+app.listen(config.server.port, () => {
+    console.log(`Listening on port ${config.server.port}`);
 });
-
-var db = admin.firestore();
-
-var docRef = db.collection('users').doc('alovelace');
-
-var setAda = docRef.set({
-    first: 'Ada',
-    last: 'Lovelace',
-    born: 1815
-});
-
-docRef.onSnapshot((doc) => {
-    if (doc && doc.exists) {
-        const myData = doc.data();
-        console.log(myData.first);
-    }
-})

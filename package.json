@@ -9,6 +9,10 @@
   "author": "Paulo Roberto Dalmas Junior <dalmasjunior@gmail.com> (https://github.com/khrosboss)",
   "license": "ISC",
   "dependencies": {
-    "firebase-admin": "^5.7.0"
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2",
+    "firebase-admin": "^5.7.0",
+    "helmet": "^3.11.0",
+    "morgan": "^1.9.0"
   }
 }
