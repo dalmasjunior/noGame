@@ -25,7 +25,9 @@ class User {
     }
 
     login(req, res) {
+        var user = req.body;
 
+        
     }
 }
 
