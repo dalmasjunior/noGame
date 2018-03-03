@@ -5,6 +5,8 @@ const user = require('./users');
 
 router.route('/')
     .post((...args) => user.create(...args))
-    .get((...args) => user.find(...args))
+
+router.route('/login')
+    .post((...args) => user.login(...args))
 
 module.exports = router;

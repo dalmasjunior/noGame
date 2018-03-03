@@ -1,33 +1,36 @@
 const admin = require('./../admin');
 const db = admin.firestore();
-const docRef = db.collection('users');
 
 class User {
     create(req, res, cb) {
+        var docRef = db.collection('users');
         var user = req.body;
         var newUser = docRef.doc();
-        docRef.set(user).then(() => {
+        docRef.add(user).then((                          ) => {
             res.status(200).json({user: 'saved'});
         });
     }
 
-    find(user) {        
+    find(user, cb) {        
+        var docRef = db.collection('users');
         docRef.where('username', '==', user.username).get().then(value => {
-            value.forEach(doc => {
-                console.log(doc.data());
-                console.log(doc.id);
-                // console.log(doc.username);
-                // console.log(doc.pwd);
-            });
-        }).catch(err => {
-            res.status(400).json(err);
-        })
+            var userObj = {};
+            if (value.docs.length != 0) {
+                userObj = value.docs[0].data();
+                userObj.id = value.docs[0].id; 
+            }
+            cb(userObj);
+        });
     }
 
     login(req, res) {
-        var user = req.body;
-
-        
+        this.find(req.body, (user) => {
+            if (user.id && (user.password === req.body.password)) {
+                res.status(200).json(user);
+            } else {
+                res.status(400).json({error: "User or password are invalid!"});
+            }
+        });        
     }
 }
 
